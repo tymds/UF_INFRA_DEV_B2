@@ -1,21 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  /* Real estate agency aesthetic - updated */
-  --text: #2d2d2d; /* charcoal for text */
-  --text-h: #1a1a1a; /* darker charcoal for headings */
-  --bg: #ffffff; /* white background */
-  --surface: #f5f5f0; /* light grey for sections and cards */
-  --border: #e0e0e0; /* light grey border */
-  --code-bg: #f8f8f8; /* light grey code background */
-  --primary: #1a2e4a; /* navy accent */
-  --secondary: #c9a84c; /* soft gold for prices and CTAs */
+  /* Nouvelle palette de couleurs - Ymmo redesign */
+  --text: #1e1e1e; /* Primary text */
+  --text-h: #1e1e1e; /* Headings */
+  --bg: #ffffff; /* Background */
+  --surface: #f4f4f4; /* Surface / cards */
+  --border: #e0e0e0; /* Borders */
+  --code-bg: #f4f4f4; /* Code background */
+  --primary: #b94a3a; /* Accent / CTA */
+  --secondary: #b94a3a; /* Prices and highlights */
   --accent: var(--primary);
-  --accent-bg: rgba(26, 46, 76, 0.08);
-  --accent-border: rgba(26, 46, 76, 0.3);
-  --social-bg: rgba(245, 245, 240, 0.5);
+  --accent-hover: #9e3a2c;
+  --accent-bg: rgba(185, 74, 58, 0.08);
+  --accent-border: rgba(185, 74, 58, 0.3);
+  --social-bg: rgba(244, 244, 244, 0.5);
+  --success: #2d6a4f;
+  --error: #b94a3a;
   --shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 8px -1px rgba(0, 0, 0, 0.03);
 
-  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 16px/1.5 var(--sans);
@@ -35,18 +40,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #cccccc; /* light grey text for dark mode */
-    --text-h: #f0f0f0; /* off-white headings */
+    --text: #e0e0e0; /* light grey text for dark mode */
+    --text-h: #ffffff; /* white headings */
     --bg: #1a1a1a; /* dark charcoal background */
     --surface: #2a2a2a; /* dark surface for cards */
     --border: #444444; /* darker grey border */
     --code-bg: #333333; /* dark grey code background */
-    --primary: #3a7bd5; /* lighter navy for dark mode */
-    --secondary: #e0b95c; /* brighter gold for dark mode */
+    --primary: #d46a5a; /* lighter brick red for dark mode */
+    --secondary: #d46a5a; /* Prices and highlights */
     --accent: var(--primary);
-    --accent-bg: rgba(58, 123, 213, 0.15);
-    --accent-border: rgba(58, 123, 213, 0.4);
+    --accent-hover: #e87a6a;
+    --accent-bg: rgba(212, 106, 90, 0.15);
+    --accent-border: rgba(212, 106, 90, 0.4);
     --social-bg: rgba(42, 42, 42, 0.5);
+    --success: #3d8b6f;
+    --error: #d46a5a;
     --shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.25), 0 2px 8px -1px rgba(0, 0, 0, 0.15);
   }
 

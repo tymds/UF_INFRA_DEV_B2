@@ -18,23 +18,70 @@ func GetBiens(w http.ResponseWriter, r *http.Request) {
 	statut := r.URL.Query().Get("statut")
 	typeBien := r.URL.Query().Get("type")
 
-	query := "SELECT id, titre, description, type, statut, prix, surface, adresse, ville, created_at FROM biens WHERE 1=1"
+	// Pagination
+	limitStr := r.URL.Query().Get("limit")
+	offsetStr := r.URL.Query().Get("offset")
+	limit := 9
+	offset := 0
+
+	if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
+		limit = l
+	}
+	if o, err := strconv.Atoi(offsetStr); err == nil && o >= 0 {
+		offset = o
+	}
+
+	// Construction de la requête de comptage
+	countQuery := "SELECT COUNT(*) FROM biens WHERE 1=1"
 	args := []interface{}{}
 
 	if ville != "" {
-		query += " AND ville = ?"
+		countQuery += " AND ville = ?"
 		args = append(args, ville)
 	}
 	if statut != "" {
-		query += " AND statut = ?"
+		countQuery += " AND statut = ?"
 		args = append(args, statut)
 	}
 	if typeBien != "" {
-		query += " AND type = ?"
+		countQuery += " AND type = ?"
 		args = append(args, typeBien)
 	}
 
-	rows, err := database.DB.Query(query, args...)
+	var total int
+	err := database.DB.QueryRow(countQuery, args...).Scan(&total)
+	if err != nil {
+		http.Error(w, "Erreur BDD", http.StatusInternalServerError)
+		return
+	}
+
+	// Requête des biens avec pagination
+	query := "SELECT id, titre, description, type, statut, prix, surface, adresse, ville, photo_url, created_at FROM biens WHERE 1=1"
+	if ville != "" {
+		query += " AND ville = ?"
+	}
+	if statut != "" {
+		query += " AND statut = ?"
+	}
+	if typeBien != "" {
+		query += " AND type = ?"
+	}
+	query += " ORDER BY created_at DESC LIMIT ? OFFSET ?"
+
+	// Reconstruction des arguments pour la requête paginée
+	pageArgs := []interface{}{}
+	if ville != "" {
+		pageArgs = append(pageArgs, ville)
+	}
+	if statut != "" {
+		pageArgs = append(pageArgs, statut)
+	}
+	if typeBien != "" {
+		pageArgs = append(pageArgs, typeBien)
+	}
+	pageArgs = append(pageArgs, limit, offset)
+
+	rows, err := database.DB.Query(query, pageArgs...)
 	if err != nil {
 		http.Error(w, "Erreur BDD", http.StatusInternalServerError)
 		return
@@ -44,7 +91,7 @@ func GetBiens(w http.ResponseWriter, r *http.Request) {
 	var biens []models.Bien
 	for rows.Next() {
 		var b models.Bien
-		rows.Scan(&b.ID, &b.Titre, &b.Description, &b.Type, &b.Statut, &b.Prix, &b.Surface, &b.Adresse, &b.Ville, &b.CreatedAt)
+		rows.Scan(&b.ID, &b.Titre, &b.Description, &b.Type, &b.Statut, &b.Prix, &b.Surface, &b.Adresse, &b.Ville, &b.PhotoURL, &b.CreatedAt)
 		biens = append(biens, b)
 	}
 
@@ -52,8 +99,20 @@ func GetBiens(w http.ResponseWriter, r *http.Request) {
 		biens = []models.Bien{}
 	}
 
+	page := 1
+	if offset > 0 {
+		page = (offset / limit) + 1
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(biens)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"biens":   biens,
+		"total":   total,
+		"page":    page,
+		"limit":   limit,
+		"offset":  offset,
+		"hasNext": offset+limit < total,
+	})
 }
 
 func GetBien(w http.ResponseWriter, r *http.Request) {
@@ -61,8 +120,8 @@ func GetBien(w http.ResponseWriter, r *http.Request) {
 
 	var b models.Bien
 	err := database.DB.QueryRow(
-		"SELECT id, titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id, created_at FROM biens WHERE id = ?", id,
-	).Scan(&b.ID, &b.Titre, &b.Description, &b.Type, &b.Statut, &b.Prix, &b.Surface, &b.Adresse, &b.Ville, &b.AgenceID, &b.CommercialID, &b.CreatedAt)
+		"SELECT id, titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id, photo_url, created_at FROM biens WHERE id = ?", id,
+	).Scan(&b.ID, &b.Titre, &b.Description, &b.Type, &b.Statut, &b.Prix, &b.Surface, &b.Adresse, &b.Ville, &b.AgenceID, &b.CommercialID, &b.PhotoURL, &b.CreatedAt)
 
 	if err != nil {
 		http.Error(w, "Bien non trouvé", http.StatusNotFound)
@@ -83,8 +142,8 @@ func CreateBien(w http.ResponseWriter, r *http.Request) {
 	}
 
 	result, err := database.DB.Exec(
-		"INSERT INTO biens (titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id) VALUES (?, ?, ?, 'disponible', ?, ?, ?, ?, ?, ?)",
-		payload.Titre, payload.Description, payload.Type, payload.Prix, payload.Surface, payload.Adresse, payload.Ville, payload.AgenceID, claims.UserID,
+		"INSERT INTO biens (titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id, photo_url) VALUES (?, ?, ?, 'disponible', ?, ?, ?, ?, ?, ?, ?)",
+		payload.Titre, payload.Description, payload.Type, payload.Prix, payload.Surface, payload.Adresse, payload.Ville, payload.AgenceID, claims.UserID, payload.PhotoURL,
 	)
 	if err != nil {
 		http.Error(w, "Erreur création", http.StatusInternalServerError)
@@ -107,8 +166,8 @@ func UpdateBien(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err := database.DB.Exec(
-		"UPDATE biens SET titre=?, description=?, type=?, prix=?, surface=?, adresse=?, ville=? WHERE id=?",
-		payload.Titre, payload.Description, payload.Type, payload.Prix, payload.Surface, payload.Adresse, payload.Ville, id,
+		"UPDATE biens SET titre=?, description=?, type=?, prix=?, surface=?, adresse=?, ville=?, photo_url=? WHERE id=?",
+		payload.Titre, payload.Description, payload.Type, payload.Prix, payload.Surface, payload.Adresse, payload.Ville, payload.PhotoURL, id,
 	)
 	if err != nil {
 		http.Error(w, "Erreur mise à jour", http.StatusInternalServerError)

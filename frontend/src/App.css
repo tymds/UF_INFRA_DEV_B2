@@ -29,7 +29,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: linear-gradient(135deg, #1a2e4a 0%, #2c4563 100%);
+  background: linear-gradient(135deg, #b94a3a 0%, #9e3a2c 100%);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 .navbar-link:hover {
-  color: #c9a84c;
+  color: #fff;
 }
 
 .navbar-link::after {
@@ -81,7 +81,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: #c9a84c;
+  background: #fff;
   transition: width 0.3s;
 }
 
@@ -90,8 +90,8 @@ body {
 }
 
 .navbar-button {
-  background: #c9a84c;
-  color: #1a2e4a;
+  background: #b94a3a;
+  color: #fff;
   border: none;
   padding: 0.65rem 1.5rem;
   border-radius: 8px;
@@ -103,22 +103,22 @@ body {
 }
 
 .navbar-button:hover {
-  background: #e0c376;
+  background: #9e3a2c;
   transform: translateY(-2px);
 }
 
 .navbar-button.primary {
-  background: #c9a84c;
-  color: #1a2e4a;
+  background: #b94a3a;
+  color: #fff;
 }
 
 .navbar-button.secondary {
-  background: #e6e6e0;
-  color: #1a2e4a;
+  background: #f4f4f4;
+  color: #b94a3a;
 }
 
 .navbar-button.secondary:hover {
-  background: #f0f0ea;
+  background: #f4f4f4;
 }
 
 .navbar-button.logout {
@@ -164,7 +164,7 @@ body {
 
 /* Hero section */
 .hero-section {
-  background: linear-gradient(135deg, var(--surface) 0%, #f0f0e8 100%);
+  background: linear-gradient(135deg, var(--surface) 0%, #f4f4f4 100%);
   padding: 4rem 2rem;
   text-align: center;
   border-radius: 16px;
@@ -213,7 +213,7 @@ body {
 
 .property-image-placeholder {
   height: 200px;
-  background: linear-gradient(135deg, #e8e8e0, #f0f0e8);
+  background: linear-gradient(135deg, #f4f4f4, #f4f4f4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -245,8 +245,8 @@ body {
 }
 
 .property-status {
-  background: #e6f4ea;
-  color: #137333;
+  background: rgba(45, 106, 79, 0.1);
+  color: #2d6a4f;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -311,13 +311,13 @@ body {
 }
 
 .property-button:hover {
-  background: #0f2039;
+  background: #9e3a2c;
 }
 
 .property-button.delete {
   background: none;
-  color: #c5221f;
-  border: 1px solid #c5221f;
+  color: #b94a3a;
+  border: 1px solid #b94a3a;
 }
 
 .property-button.delete:hover {
@@ -389,7 +389,7 @@ body {
 }
 
 .filter-button:hover {
-  background: #0f2039;
+  background: #9e3a2c;
 }
 
 /* Form cards */
@@ -465,7 +465,7 @@ body {
 }
 
 .form-button:hover {
-  background: #0f2039;
+  background: #9e3a2c;
 }
 
 .form-switch {
@@ -514,7 +514,7 @@ body {
 
 .property-detail-image {
   height: 400px;
-  background: linear-gradient(135deg, #e8e8e0, #f0f0e8);
+  background: linear-gradient(135deg, #f4f4f4, #f4f4f4);
   border-radius: 12px;
   margin-bottom: 2rem;
   display: flex;
@@ -559,8 +559,8 @@ body {
 }
 
 .property-detail-badge.status {
-  background: #e6f4ea;
-  color: #137333;
+  background: rgba(45, 106, 79, 0.1);
+  color: #2d6a4f;
 }
 
 .property-detail-badge.type {
@@ -626,9 +626,9 @@ body {
 }
 
 .error-message {
-  background: #fee;
-  border: 1px solid #fcc;
-  color: #c00;
+  background: rgba(185, 74, 58, 0.1);
+  border: 1px solid rgba(185, 74, 58, "\x30\x2e\x33");
+  color: #b94a3a;
   padding: 1rem;
   border-radius: 6px;
   margin: 1rem 0;

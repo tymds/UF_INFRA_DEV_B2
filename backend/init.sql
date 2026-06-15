@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS biens (
     ville VARCHAR(100),
     agence_id INT,
     commercial_id INT,
+    photo_url VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (agence_id) REFERENCES agences(id),
     FOREIGN KEY (commercial_id) REFERENCES users(id)
@@ -73,9 +74,9 @@ INSERT INTO users (nom, prenom, email, password_hash, role, agence_id) VALUES
 
 -- password pour tous : "password"
 
-INSERT INTO biens (titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id) VALUES
-('Appartement T3 lumineux', 'Bel appartement au 3ème étage avec balcon et vue dégagée.', 'résidentiel', 'disponible', 245000.00, 68.50, '14 Rue des Lilas', 'Paris', 2, 2),
-('Maison avec jardin', 'Maison familiale 5 pièces avec jardin de 300m².', 'résidentiel', 'disponible', 389000.00, 120.00, '3 Allée des Roses', 'Lyon', 3, 3),
-('Bureau moderne', 'Plateau de bureaux open space, proche transports.', 'professionnel', 'disponible', 180000.00, 95.00, '8 Avenue de la République', 'Paris', 2, 2),
-('Studio étudiant', 'Studio meublé idéal pour étudiant, proche université.', 'résidentiel', 'vendu', 89000.00, 22.00, '2 Rue de la Paix', 'Lyon', 3, 3),
-('Villa de prestige', 'Magnifique villa avec piscine et vue mer.', 'résidentiel', 'en_négociation', 950000.00, 280.00, '17 Chemin des Collines', 'Aix-en-Provence', 1, 2);
+INSERT INTO biens (titre, description, type, statut, prix, surface, adresse, ville, agence_id, commercial_id, photo_url) VALUES
+('Appartement T3 lumineux', 'Bel appartement au 3ème étage avec balcon et vue dégagée.', 'résidentiel', 'disponible', 245000.00, 68.50, '14 Rue des Lilas', 'Paris', 2, 2, 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80'),
+('Maison avec jardin', 'Maison familiale 5 pièces avec jardin de 300m².', 'résidentiel', 'disponible', 389000.00, 120.00, '3 Allée des Roses', 'Lyon', 3, 3, 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80'),
+('Bureau moderne', 'Plateau de bureaux open space, proche transports.', 'professionnel', 'disponible', 180000.00, 95.00, '8 Avenue de la République', 'Paris', 2, 2, 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80'),
+('Studio étudiant', 'Studio meublé idéal pour étudiant, proche université.', 'résidentiel', 'vendu', 89000.00, 22.00, '2 Rue de la Paix', 'Lyon', 3, 3, NULL),
+('Villa de prestige', 'Magnifique villa avec piscine et vue mer.', 'résidentiel', 'en_négociation', 950000.00, 280.00, '17 Chemin des Collines', 'Aix-en-Provence', 1, 2, 'https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80');

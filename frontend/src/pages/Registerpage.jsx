@@ -1,31 +1,31 @@
 import { useState } from "react";
 import { api } from "../api";
 
-const navy = "#1a2e4a";
+const navy = "#b94a3a";
 
 const s = {
-  wrap: { minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", background: "linear-gradient(135deg, #1a2e4a 0%, #2c4563 100%)" },
-  card: { background: "#fff", borderRadius: 16, border: "1px solid #e8e8e4", padding: "2.5rem", width: "100%", maxWidth: 420, boxShadow: "0 20px 60px rgba(0,0,0,0.15)" },
+  wrap: { minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", background: "linear-gradient(135deg, #b94a3a 0%, #9e3a2c 100%)", fontFamily: "'Inter', system-ui, -apple-system, sans-serif" },
+  card: { background: "#ffffff", borderRadius: 16, border: "1px solid #e0e0e0", padding: "2.5rem", width: "100%", maxWidth: 420, boxShadow: "0 20px 60px rgba(0,0,0,0.15)" },
   logo: { textAlign: "center", marginBottom: "2rem" },
   logoText: { fontSize: "1.75rem", fontWeight: 700, color: navy, letterSpacing: "-0.5px" },
-  logoSub: { fontSize: "0.85rem", color: "#888", marginTop: 6 },
+  logoSub: { fontSize: "0.85rem", color: "#6b6b6b", marginTop: 6 },
   title: { fontSize: "1.35rem", fontWeight: 600, color: navy, marginBottom: "1.75rem", textAlign: "center" },
   row: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" },
   group: { marginBottom: "1.25rem" },
-  label: { display: "block", fontSize: "0.82rem", fontWeight: 500, color: "#555", marginBottom: 6 },
+  label: { display: "block", fontSize: "0.82rem", fontWeight: 500, color: "#6b6b6b", marginBottom: 6 },
   input: {
-    width: "100%", padding: "0.75rem 0.85rem", border: "1px solid #ddd",
+    width: "100%", padding: "0.75rem 0.85rem", border: "1px solid #e0e0e0",
     borderRadius: 8, fontSize: "0.95rem", boxSizing: "border-box",
-    outline: "none", color: "#2d2d2d",
+    outline: "none", color: "#1e1e1e",
   },
-  error: { background: "#fee6e6", color: "#c5221f", borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem", marginBottom: "1rem" },
-  success: { background: "#e6f4ea", color: "#137333", borderRadius: 12, padding: "1.5rem", textAlign: "center", marginBottom: "1.5rem" },
+  error: { background: "rgba(185, 74, 58, 0.1)", color: "#b94a3a", borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem", marginBottom: "1rem" },
+  success: { background: "rgba(45, 106, 79, 0.1)", color: "#2d6a4f", borderRadius: 12, padding: "1.5rem", textAlign: "center", marginBottom: "1.5rem" },
   btn: {
-    width: "100%", padding: "0.85rem", background: navy, color: "#fff",
+    width: "100%", padding: "0.85rem", background: navy, color: "#ffffff",
     border: "none", borderRadius: 8, fontSize: "1rem", fontWeight: 600,
     cursor: "pointer", marginTop: "0.5rem", transition: "background 0.2s",
   },
-  switch: { textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem", color: "#666" },
+  switch: { textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem", color: "#6b6b6b" },
   switchBtn: { background: "none", border: "none", color: navy, fontWeight: 600, cursor: "pointer", padding: 0, textDecoration: "underline" },
 };
 

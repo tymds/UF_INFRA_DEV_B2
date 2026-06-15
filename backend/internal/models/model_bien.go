@@ -33,6 +33,7 @@ type Bien struct {
 	Ville        string    `json:"ville"`
 	AgenceID     *int      `json:"agence_id"`
 	CommercialID *int      `json:"commercial_id"`
+	PhotoURL     string    `json:"photo_url"`
 	CreatedAt    time.Time `json:"created_at"`
 }
 
@@ -75,4 +76,5 @@ type CreateBienPayload struct {
 	Adresse     string  `json:"adresse"`
 	Ville       string  `json:"ville"`
 	AgenceID    *int    `json:"agence_id"`
+	PhotoURL    string  `json:"photo_url"`
 }
